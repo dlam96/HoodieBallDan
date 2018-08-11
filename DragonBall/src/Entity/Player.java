@@ -8,7 +8,6 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 import Audio.AudioPlayer;
-import GameState.GameStateManager;
 
 //import apple.laf.JRSUIConstants.Hit;
 
@@ -20,12 +19,11 @@ public class Player extends MapObject
 	//counter for dead status
 	private int counter = 0;	
 	private HashMap<String, AudioPlayer> SFX;
-	
 	// player stuff
-	private int health;
-	private int maxHealth;
-	private int fire;
-	private int maxFire;
+	private double health;
+	private double maxHealth;
+	private double fire;
+	private double maxFire;
 	private boolean dead = false;
 	private boolean flinching;
 	private long flinchTimer;
@@ -56,7 +54,7 @@ public class Player extends MapObject
 	private static final int GLIDING = 4;
 	private static final int FIREBALL = 5;
 	private static final int SCRATCHING = 6;
-	private static final int DYING = 7;
+	//private static final int DYING = 7;
 	
 	public Player(TileMap tm ) 
 	{
@@ -75,7 +73,7 @@ public class Player extends MapObject
 		cheight = 40;
 		
 		moveSpeed = .25;
-		maxSpeed = 2.0;
+		maxSpeed = 1.5;
 		stopSpeed = 0.4;
 		fallSpeed = 0.15;
 		maxFallSpeed = 4.0;
@@ -84,14 +82,14 @@ public class Player extends MapObject
 		
 		facingRight = true;
 		
-		health = maxHealth = 5;
+		health = maxHealth = 10;
 		fire = maxFire = 1000;
 		
 		fireCost = 200;
-		fireBallDamage = 5;
+		fireBallDamage = 3;
 		fireBalls = new ArrayList<FireBall>();
 		
-		scratchDamage = 8;
+		scratchDamage = 5;
 		scratchRange = 40;
 		try 
 		{
@@ -127,10 +125,10 @@ public class Player extends MapObject
 		
 	}
 	
-	public int getHealth() { return health; }
-	public int getMaxHealth() { return maxHealth; }
-	public int getFire() { return fire; }
-	public int getMaxFire() { return maxFire; }
+	public double getHealth() { return health; }
+	public double getMaxHealth() { return maxHealth; }
+	public double getFire() { return fire; }
+	public double getMaxFire() { return maxFire; }
 	public boolean getDead() { return dead;}
 	
 	public void setFiring() 
@@ -184,7 +182,7 @@ public class Player extends MapObject
 					break;
 				}
 			}
-			
+		
 			// check enemy collision
 			if(intersects(e))
 			{
@@ -194,7 +192,7 @@ public class Player extends MapObject
 		}
 	}
 
-	public void hit(int damage)
+	public void hit(double damage)
 	{
 		if(flinching)
 		{
@@ -216,9 +214,9 @@ public class Player extends MapObject
 	
 	private void getNextPosition()
 	{
-		System.out.format("located in player getNextPosition: %.3f %.3f%n", x, y); //prints coordinate of player
+		//System.out.format("located in player getNextPosition: %.3f %.3f%n", x, y); //prints coordinate of player
 		// movement
-		if(y > 400) dead = true;
+		if(y > 400) dead = true; //falling to death range
 		if(dead == false) {
 		if(left)
 		{
