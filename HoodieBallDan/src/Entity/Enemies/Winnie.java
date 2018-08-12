@@ -30,16 +30,15 @@ public class Winnie extends Enemy {
 	public Winnie(TileMap tm) {
 		super(tm);
 
-		moveSpeed = 0.2;
-		maxSpeed = 1.5;
+		moveSpeed = 0.1;
+		maxSpeed = 1;
 		fallSpeed = 0.2;
 		maxFallSpeed = 10.0;
 
 		width = 30;
 		height = 40;
-		cwidth = 30;
+		cwidth = 20;
 		cheight = 40;
-		
 		
 		projectileDamage = 5;
 		fireBalls = new ArrayList<FireBall>();
@@ -83,26 +82,48 @@ public class Winnie extends Enemy {
 	public void setFiringFalse() {
 		firing = false;
 	}
-	
-	private void getNextPosition() {
-		if (left) {
+	//Replaced by getPlayerPos function to "chase" player
+//	private void getNextPosition() { 
+//		if (left) {
+//			dx -= moveSpeed;
+//			if (dx < -maxSpeed) {
+//				dx = -maxSpeed;
+//			}
+//		} 
+//		else if (right) {
+//			dx += moveSpeed;
+//			if (dx > maxSpeed) {
+//				dx = +maxSpeed;
+//			}
+//		}
+//
+//		// falling
+//		if (falling) {
+//			dy += fallSpeed;
+//		}
+//	}
+	public void getPlayerPos(Player player){
+		
+		if (player.getx() < x) {
 			dx -= moveSpeed;
 			if (dx < -maxSpeed) {
 				dx = -maxSpeed;
+				facingRight = false;
 			}
-		} else if (right) {
+		} 
+		else if (player.getx() > x) {
 			dx += moveSpeed;
 			if (dx > maxSpeed) {
-				dx = maxSpeed;
+				dx = +maxSpeed;
+				facingRight = true;
 			}
 		}
-
-		// falling
 		if (falling) {
 			dy += fallSpeed;
 		}
+		
+		
 	}
-	
 	//checks if projectile collides with player
 	public void checkProjectile(Player player)
 	{
@@ -120,10 +141,9 @@ public class Winnie extends Enemy {
 	}
 
 	public void update() {
-		// fireballs
 		
 		// update position
-		getNextPosition();
+		//getNextPosition();
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);
 		// fireball attack
@@ -170,17 +190,6 @@ public class Winnie extends Enemy {
 			if (elapsed > 400) {
 				flinching = false;
 			}
-		}
-
-		// if it hits a wall, go other direction
-		if (right && dx == 0) {
-			right = false;
-			left = true;
-			facingRight = false;
-		} else if (left && dx == 0) {
-			right = true;
-			left = false;
-			facingRight = true;
 		}
 
 		// update animation

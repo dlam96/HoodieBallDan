@@ -29,7 +29,7 @@ public class Level1State extends GameState {
 	protected double xe;
 	protected double ye;
 	protected Winnie winnie;
-	private Player player;
+	protected Player player;
 
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Explosion> explosions;
@@ -48,8 +48,8 @@ public class Level1State extends GameState {
 	public void init() {
 		audio = new HashMap<String, AudioPlayer>();
 		if (counter == 0) {
-			//audio.put("level1BGM", new AudioPlayer("/BGM/9-bit Expedition.mp3", 0.1));
-			//audio.get("level1BGM").play();
+			// audio.put("level1BGM", new AudioPlayer("/BGM/9-bit Expedition.mp3", 0.1));
+			// audio.get("level1BGM").play();
 		}
 
 		tileMap = new TileMap(30); // 30 = size of a tile
@@ -61,7 +61,7 @@ public class Level1State extends GameState {
 		bg = new Background("/Backgrounds/grassbg1.gif", 0.1);
 
 		player = new Player(tileMap);
-		player.setPosition(150, 160);
+		player.setPosition(2600, 160);
 
 		populateEnemies();
 
@@ -85,7 +85,7 @@ public class Level1State extends GameState {
 				// new Point(1900, 190),
 				// new Point(2000, 200)
 		};
-		Point[] winniePoints = new Point[] { new Point(300, 10) };
+		Point[] winniePoints = new Point[] { new Point(3000, 100) };
 		// adds enemies to array list
 		for (int i = 0; i < sluggerPoints.length; i++) {
 			slugger = new Slugger(tileMap);
@@ -107,23 +107,25 @@ public class Level1State extends GameState {
 
 		tileMap.setPosition(GamePanel.WIDTH / 2 - player.getx(), GamePanel.HEIGHT / 2 - player.gety());
 
+		// set background
+		bg.setPosition(tileMap.getx(), tileMap.gety());
+
 		xp = player.getx();
 		yp = player.gety();
 		xe = winnie.getx();
 		ye = winnie.gety();
 		// set enemy attack animation if player in range [needs work]
-		if ((xp <= xe + 100 || xp >= xe - 10) && ye == yp) { 
+		if (ye != yp) {
 			winnie.setFiringTrue();
-			//System.out.println("lvl1s xp: " + xp + " xe: " + xe);
-		
+			// System.out.println("lvl1s xp: " + xp + " xe: " + xe);
+
 		}
 
-		// set background
-		bg.setPosition(tileMap.getx(), tileMap.gety());
-
 		// check player attack enemies/winnie attack player w/ projectile
+		// enemy check player position to head towards
 		player.checkAttack(enemies);
 		winnie.checkProjectile(player);
+		winnie.getPlayerPos(player);
 
 //		// update all enemies
 		for (int i = 0; i < enemies.size(); i++) {
@@ -155,9 +157,8 @@ public class Level1State extends GameState {
 			gsm.setState(GameStateManager.DEADSTATE);
 			// audio.get("deadBGM").play();
 		}
-
-		if ((player.nextLevelXPosition() >= 3090 && (player.nextLevelXPosition() <= 3120))
-				&& player.nextLevelYPosition() == 190) {
+		// if winnie boss is dead then player can proceed to next level
+		if ((player.nextLevelXPosition() >= 3090 && (player.nextLevelXPosition() <= 3120)) && winnie.isDead()) {
 			gsm.setState(GameStateManager.LEVEL2STATE);
 		}
 		// draw background
