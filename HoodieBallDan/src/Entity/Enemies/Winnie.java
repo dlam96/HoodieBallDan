@@ -43,7 +43,7 @@ public class Winnie extends Enemy {
 		projectileDamage = 5;
 		fireBalls = new ArrayList<FireBall>();
 		health = maxHealth = 10;
-		damage = 0;
+		damage = 2;
 
 		// load sprites
 		try {
