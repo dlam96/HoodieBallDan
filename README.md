@@ -1,7 +1,7 @@
 # HoodieBallDan
 Dragon ball Z themed 2D tile-based game
 
-![HoodieBallDan Demo](https://github.com/dlam96/HoodieBallDan/blob/master/demo.gif?raw=true)
+![HoodieBallDan Demo](https://github.com/dlam96/GIFS/blob/master/demo.gif)
 
 ## How To Play
 W - Jump
