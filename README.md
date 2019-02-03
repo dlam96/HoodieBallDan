@@ -1,7 +1,7 @@
 # HoodieBallDan
 Dragon ball Z themed 2D tile-based game
 
-[comment]: <> (![HoodieBallDan Demo](https://github.com/dlam96/GIFS/blob/master/demo.gif))
+<!-- (![HoodieBallDan Demo](https://github.com/dlam96/GIFS/blob/master/demo.gif))-->
 
 <img src="https://github.com/dlam96/GIFS/blob/master/demo.gif" width="70%">
 
