@@ -24,6 +24,7 @@ R - Melee Attack
 
 ## Acknowledgments
 * **ForeignGuyMike** - [Youtube](https://www.youtube.com/user/ForeignGuyMike)
+* Itch.io - 2D Characters and Sprites 
 
 ## Notes
 Game still has many issues but has two playable levels 
